@@ -1,7 +1,7 @@
-![image](https://qwertycoin.org/files/qwc-github.jpg)
+![image](https://Novocoin.org/files/nov-github.jpg)
 
-[![Build Status](https://travis-ci.org/qwertycoin-org/qwertycoin.svg?branch=master)](https://travis-ci.org/qwertycoin-org/qwertycoin)
-[![Build status](https://ci.appveyor.com/api/projects/status/yhiqfap4nfdommsb?svg=true)](https://ci.appveyor.com/project/qwertycoin-org/qwertycoin)
+[![Build Status](https://travis-ci.org/Novocoin-org/Novocoin.svg?branch=master)](https://travis-ci.org/Novocoin-org/Novocoin)
+[![Build status](https://ci.appveyor.com/api/projects/status/yhiqfap4nfdommsb?svg=true)](https://ci.appveyor.com/project/Novocoin-org/Novocoin)
 
 ### How To Compile
 
@@ -9,7 +9,7 @@
 
 There is a bash installation script for Ubuntu 16.04+ and MacOS 10.10+ which can be used to checkout and build the project from source:
 
-`$ curl -sL "https://qwertycoin.org/files/compile/multi-installer.sh" | bash `
+`$ curl -sL "https://Novocoin.org/files/compile/multi-installer.sh" | bash `
 
 On Ubuntu you will be asked for sudo rights to install software. The binaries will be in `./src` after compilation is complete.
 
@@ -21,13 +21,13 @@ If the script doesn't work for you: use `./easy-installer.sh` or with:
 
 #### Linux
 
-If you are using Arch Linux, there is an AUR precompiled package, `qwertycoin-bin`, or a build from source version, `qwertycoin-git`.
+If you are using Arch Linux, there is an AUR precompiled package, `Novocoin-bin`, or a build from source version, `Novocoin-git`.
 
 ##### Prerequisites
 
 - You will need the following packages: boost (1.55 or higher), cmake, git, gcc (4.9 or higher), g++ (4.9 or higher), make, and python. Most of these should already be installed on your system.
 - For example on ubuntu: `sudo apt-get install build-essential python-dev gcc g++ git cmake libboost-all-dev `
-- After this you can compile your Qwertycoin
+- After this you can compile your Novocoin
 ```
 mkdir build && cd build
 cmake .. && make
@@ -44,12 +44,12 @@ or use makefile
 ##### Building
 
 - From the start menu, open 'x64 Native Tools Command Prompt for vs2017'.
-- `cd <your_qwertycoin_directory>`
+- `cd <your_Novocoin_directory>`
 - `mkdir build`
 - `cd build`
 - Set the PATH variable for cmake: ie. `set PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin";%PATH%`
 - `cmake -G "Visual Studio 15 2017 Win64" .. -DBOOST_ROOT=C:/Boost/boost_1_59_0` (Or your boost installed dir.)
-- `MSBuild Qwertycoin.sln /p:Configuration=Release /m`
+- `MSBuild Novocoin.sln /p:Configuration=Release /m`
 - If all went well, it will complete successfully, and you will find all your binaries in the '..\build\src\Release' directory.
 - Additionally, a `.sln` file will have been created in the `build` directory. If you wish to open the project in Visual Studio with this, you can.
 
@@ -64,8 +64,8 @@ or use makefile
 
 ##### Building
 
-- `git clone https://github.com/qwertycoin-org/qwertycoin`
-- `cd qwertycoin`
+- `git clone https://github.com/techqc/novocoin`
+- `cd Novocoin`
 - `mkdir build && cd $_`
 - `cmake ..` or `cmake -DBOOST_ROOT=<path_to_boost_install> ..` when building
   from a specific boost install
@@ -74,4 +74,4 @@ or use makefile
 The binaries will be in `./src` after compilation is complete.
 
 #### Thanks
-Cryptonote Developers, Bytecoin Developers, Monero Developers, Karbo Project, Qwertycoin Community
+Cryptonote Developers, Bytecoin Developers, Monero Developers, Karbo Project, Novocoin Community

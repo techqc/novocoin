@@ -11,8 +11,8 @@ RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 ADD https://github.com/just-containers/socklog-overlay/releases/download/v2.1.0-0/socklog-overlay-amd64.tar.gz /tmp/
 RUN tar xzf /tmp/socklog-overlay-amd64.tar.gz -C /
 
-ARG QWERTYCOIN_VERSION=v0.3.0
-ENV QWERTYCOIN_VERSION=${QWERTYCOIN_VERSION}
+ARG Novocoin_VERSION=v0.3.0
+ENV Novocoin_VERSION=${Novocoin_VERSION}
 
 # install build dependencies
 # checkout the latest tag
@@ -25,26 +25,26 @@ RUN apt-get update && \
       g++-4.9 \
       git cmake \
       libboost-all-dev && \
-    git clone https://github.com/qwertycoin-org/qwertycoin.git /src/qwertycoin && \
-    cd /src/qwertycoin && \
-    git checkout $QWERTYCOIN_VERSION && \
+    git clone https://github.com/techqc/novocoin.git /src/Novocoin && \
+    cd /src/Novocoin && \
+    git checkout $Novocoin_VERSION && \
     mkdir build && \
     cd build && \
     cmake -DCMAKE_CXX_FLAGS="-g0 -Os -fPIC -std=gnu++11" .. && \
     make -j$(nproc) && \
     mkdir -p /usr/local/bin && \
-    cp src/qwertycoind /usr/local/bin/qwertycoind && \
+    cp src/Novocoind /usr/local/bin/Novocoind && \
     cp src/walletd /usr/local/bin/walletd && \
     cp src/simplewallet /usr/local/bin/simplewallet && \
     cp src/miner /usr/local/bin/miner && \
     cp src/connectivity_tool /usr/local/bin/connectivity_tool && \
-    strip /usr/local/bin/qwertycoind && \
+    strip /usr/local/bin/Novocoind && \
     strip /usr/local/bin/walletd && \
     strip /usr/local/bin/simplewallet && \
     strip /usr/local/bin/miner && \
     strip /usr/local/bin/connectivity_tool && \
     cd / && \
-    rm -rf /src/qwertycoin && \
+    rm -rf /src/Novocoin && \
     apt-get remove -y build-essential python-dev gcc-4.9 g++-4.9 git cmake libboost-all-dev && \
     apt-get autoremove -y && \
     apt-get install -y  \
@@ -58,27 +58,27 @@ RUN apt-get update && \
       libboost-program-options1.58.0 \
       libicu55
 
-# setup the qwertycoind service
-RUN useradd -r -s /usr/sbin/nologin -m -d /var/lib/qwertycoind qwertycoind && \
-    useradd -s /bin/bash -m -d /home/qwertycoin qwertycoin && \
-    mkdir -p /etc/services.d/qwertycoind/log && \
-    mkdir -p /var/log/qwertycoind && \
-    echo "#!/usr/bin/execlineb" > /etc/services.d/qwertycoind/run && \
-    echo "fdmove -c 2 1" >> /etc/services.d/qwertycoind/run && \
-    echo "cd /var/lib/qwertycoind" >> /etc/services.d/qwertycoind/run && \
-    echo "export HOME /var/lib/qwertycoind" >> /etc/services.d/qwertycoind/run && \
-    echo "s6-setuidgid qwertycoind /usr/local/bin/qwertycoind" >> /etc/services.d/qwertycoind/run && \
-    chmod +x /etc/services.d/qwertycoind/run && \
-    chown nobody:nogroup /var/log/qwertycoind && \
-    echo "#!/usr/bin/execlineb" > /etc/services.d/qwertycoind/log/run && \
-    echo "s6-setuidgid nobody" >> /etc/services.d/qwertycoind/log/run && \
-    echo "s6-log -bp -- n20 s1000000 /var/log/qwertycoind" >> /etc/services.d/qwertycoind/log/run && \
-    chmod +x /etc/services.d/qwertycoind/log/run && \
-    echo "/var/lib/qwertycoind true qwertycoind 0644 0755" > /etc/fix-attrs.d/qwertycoind-home && \
-    echo "/home/qwertycoin true qwertycoin 0644 0755" > /etc/fix-attrs.d/qwertycoin-home && \
-    echo "/var/log/qwertycoind true nobody 0644 0755" > /etc/fix-attrs.d/qwertycoind-logs
+# setup the Novocoind service
+RUN useradd -r -s /usr/sbin/nologin -m -d /var/lib/Novocoind Novocoind && \
+    useradd -s /bin/bash -m -d /home/Novocoin Novocoin && \
+    mkdir -p /etc/services.d/Novocoind/log && \
+    mkdir -p /var/log/Novocoind && \
+    echo "#!/usr/bin/execlineb" > /etc/services.d/Novocoind/run && \
+    echo "fdmove -c 2 1" >> /etc/services.d/Novocoind/run && \
+    echo "cd /var/lib/Novocoind" >> /etc/services.d/Novocoind/run && \
+    echo "export HOME /var/lib/Novocoind" >> /etc/services.d/Novocoind/run && \
+    echo "s6-setuidgid Novocoind /usr/local/bin/Novocoind" >> /etc/services.d/Novocoind/run && \
+    chmod +x /etc/services.d/Novocoind/run && \
+    chown nobody:nogroup /var/log/Novocoind && \
+    echo "#!/usr/bin/execlineb" > /etc/services.d/Novocoind/log/run && \
+    echo "s6-setuidgid nobody" >> /etc/services.d/Novocoind/log/run && \
+    echo "s6-log -bp -- n20 s1000000 /var/log/Novocoind" >> /etc/services.d/Novocoind/log/run && \
+    chmod +x /etc/services.d/Novocoind/log/run && \
+    echo "/var/lib/Novocoind true Novocoind 0644 0755" > /etc/fix-attrs.d/Novocoind-home && \
+    echo "/home/Novocoin true Novocoin 0644 0755" > /etc/fix-attrs.d/Novocoin-home && \
+    echo "/var/log/Novocoind true nobody 0644 0755" > /etc/fix-attrs.d/Novocoind-logs
 
-VOLUME ["/var/lib/qwertycoind", "/home/qwertycoin","/var/log/qwertycoind"]
+VOLUME ["/var/lib/Novocoind", "/home/Novocoin","/var/log/Novocoind"]
 
 ENTRYPOINT ["/init"]
-CMD ["/usr/bin/execlineb", "-P", "-c", "emptyenv cd /home/qwertycoin export HOME /home/qwertycoin s6-setuidgid qwertycoin /bin/bash"]
+CMD ["/usr/bin/execlineb", "-P", "-c", "emptyenv cd /home/Novocoin export HOME /home/Novocoin s6-setuidgid Novocoin /bin/bash"]

@@ -18,11 +18,11 @@ Release notes Novocoin 0.0.1
 
 Release Notes 1.5.6
 
-Qwertycoin project is moved to GitHub
+Novocoin project is moved to GitHub
 
 Release Notes 2.1.0
 
-Qwertycoin has a Hardfork @ Block Height 8473
+Novocoin has a Hardfork @ Block Height 8473
 -Snapshot as Height 8473
 -New Network Identifiers, New P2P Trust Key and new Set of Masternodes.
 
